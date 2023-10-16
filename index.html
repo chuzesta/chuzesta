@@ -11,26 +11,38 @@
 
     <script type="text/javascript">
       var yourVlSpec = {
-        $schema: 'https://vega.github.io/schema/vega-lite/v5.json',
-        description: 'A simple bar chart with embedded data.',
-        data: {
-          values: [
-            {a: 'A', b: 28},
-            {a: 'B', b: 55},
-            {a: 'C', b: 43},
-            {a: 'D', b: 91},
-            {a: 'E', b: 81},
-            {a: 'F', b: 53},
-            {a: 'G', b: 19},
-            {a: 'H', b: 87},
-            {a: 'I', b: 52}
-          ]
-        },
-        mark: 'bar',
-        encoding: {
-          x: {field: 'a', type: 'ordinal'},
-          y: {field: 'b', type: 'quantitative'}
-        }
+       {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "https://uiuc-ischool-dataviz.github.io/spring2019online/week02/building_inventory.csv"},
+  "vconcat": 
+  [          
+    {
+      "width":750,
+      "mark": {"type": "bar", "cornerRadius": 10},
+      "encoding": 
+      {
+        "x": {"field": "Congress Dist", "type": "quantitative"},
+        "y": {"aggregate": "sum", "field":"Square Footage"}
+      }
+    },
+
+    {
+    "width":750,
+
+    "transform": 
+    [
+        {"filter" : "datum['Year Constructed'] > 0"}
+    ],
+    "mark": {"type": "point"},
+    "encoding": 
+      {
+        "x": {"field": "Year Constructed", "type": "quantitative", "scale": {"domain": [1740,2025]}},
+        "y": {"field":"Total Floors", "type": "quantitative"}
+      }
+    
+    }
+  ]
+}
       };
       vegaEmbed('#vis', yourVlSpec);
     </script>
